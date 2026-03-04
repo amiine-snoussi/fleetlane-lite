@@ -1,9 +1,15 @@
 from pathlib import Path
 from fastapi import FastAPI
+from .db import init_db
 from fastapi.staticfiles import StaticFiles
 
 # API sub-app (all endpoints live under /api/*)
 api = FastAPI(title="fleetlane-lite-api")
+
+@api.on_event("startup")
+def _startup():
+    init_db()
+
 
 @api.get("/health")
 def health():
