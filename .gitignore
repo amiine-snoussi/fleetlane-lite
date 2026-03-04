@@ -12,3 +12,10 @@ fleetlane.db
 # sqlite dbs
 *.db
 backend/*.db
+
+# python
+__pycache__/
+*.pyc
+
+# sqlite
+*.db
