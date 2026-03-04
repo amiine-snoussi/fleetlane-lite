@@ -28,7 +28,7 @@ Built to demonstrate: spec → design → implement → test → ship.
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -r backend/requirements.txt
+pip install -r requirements.txt
 
 ## Screenshots
 
