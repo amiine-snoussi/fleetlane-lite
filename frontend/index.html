@@ -3,11 +3,73 @@
   <head>
     <meta charset="utf-8" />
     <title>Fleetlane-lite</title>
-    <link rel="stylesheet" href="/styles.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/styles.css?v=2?v=1" />
   </head>
   <body>
-    <h1>Fleetlane-lite</h1>
-    <div id="status">Loading...</div>
-    <script src="/app.js"></script>
+    <header>
+      <h1>Fleetlane-lite</h1>
+      <div class="sub">
+        <span id="apiStatus">API: ...</span>
+        <a href="/api/docs" target="_blank" rel="noreferrer">API Docs</a>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Create Vehicle</h2>
+        <form id="vehicleForm">
+          <label>Plate <input name="plate" placeholder="ABC123" required /></label>
+          <label>Mileage <input name="mileage" type="number" min="0" value="0" /></label>
+          <label>Location <input name="location" placeholder="MTL" /></label>
+          <button type="submit">Create Vehicle</button>
+        </form>
+        <div class="hint">Status starts as AVAILABLE.</div>
+      </section>
+
+      <section class="card">
+        <h2>Create Customer</h2>
+        <form id="customerForm">
+          <label>Name <input name="name" placeholder="John Doe" required /></label>
+          <label>Contact <input name="contact" placeholder="john@example.com" /></label>
+          <button type="submit">Create Customer</button>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Create Reservation</h2>
+        <form id="reservationForm">
+          <label>Customer ID <input name="customer_id" type="number" min="1" required /></label>
+          <label>Vehicle ID <input name="vehicle_id" type="number" min="1" required /></label>
+          <label>Start <input name="start_at" type="datetime-local" required /></label>
+          <label>End <input name="end_at" type="datetime-local" required /></label>
+          <button type="submit">Create Reservation</button>
+        </form>
+        <div class="hint">Overlap returns 409 (you should see it below).</div>
+      </section>
+
+      <section class="card">
+        <h2>Vehicles</h2>
+        <div class="row">
+          <button id="refreshVehicles">Refresh</button>
+        </div>
+        <div id="vehiclesList" class="list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Reservations</h2>
+        <div class="row">
+          <button id="refreshReservations">Refresh</button>
+        </div>
+        <div id="reservationsList" class="list"></div>
+      </section>
+
+      <section class="card">
+        <h2>Log</h2>
+        <div id="log" class="log"></div>
+      </section>
+    </main>
+
+    <script src="/app.js?v=2?v=1"></script>
   </body>
 </html>
