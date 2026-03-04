@@ -8,3 +8,7 @@ __pycache__/
 # local sqlite db
 fleetlane.db
 *.db
+
+# sqlite dbs
+*.db
+backend/*.db

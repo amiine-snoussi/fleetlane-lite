@@ -6,7 +6,6 @@ Built to demonstrate: spec → design → implement → test → ship.
 ## Stack
 - Backend: FastAPI, SQLAlchemy, SQLite, pytest
 - Frontend: vanilla HTML/CSS/JS served by FastAPI
-- OS target: Linux (works on WSL2)
 
 ## Features
 - Vehicles: create, list, get by id
@@ -24,11 +23,19 @@ Built to demonstrate: spec → design → implement → test → ship.
   - Unit tests for overlap logic
   - API tests for 409 conflict + full lifecycle flow
 
-## Quickstart (3 commands)
+## Quickstart
 ```bash
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+cd backend
+uvicorn app.main:app --reload --port 8000
+````
+
+Open:
+
+* UI: [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+* API Docs: [http://127.0.0.1:8000/api/docs](http://127.0.0.1:8000/api/docs)
 
 ## Screenshots
 
