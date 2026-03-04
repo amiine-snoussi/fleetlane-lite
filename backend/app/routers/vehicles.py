@@ -23,3 +23,10 @@ def create_vehicle(payload: VehicleCreate, db: Session = Depends(get_db)):
 @router.get("", response_model=list[VehicleOut])
 def list_vehicles(db: Session = Depends(get_db)):
     return db.query(Vehicle).order_by(Vehicle.id.asc()).all()
+
+@router.get("/{vehicle_id}", response_model=VehicleOut)
+def get_vehicle(vehicle_id: int, db: Session = Depends(get_db)):
+    v = db.query(Vehicle).filter(Vehicle.id == vehicle_id).first()
+    if v is None:
+        raise HTTPException(status_code=404, detail="Vehicle not found.")
+    return v

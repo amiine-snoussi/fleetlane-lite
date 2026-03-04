@@ -47,3 +47,23 @@ class ReservationOut(BaseModel):
     start_at: datetime
     end_at: datetime
     status: str
+    mileage_out: int | None = None
+    mileage_in: int | None = None
+    checkin_notes: str | None = None
+
+# ---------- Actions ----------
+class CheckoutIn(BaseModel):
+    mileage_out: int
+
+class CheckinIn(BaseModel):
+    mileage_in: int
+    notes: str | None = None
+
+class SignIn(BaseModel):
+    signed_by: str
+
+class AgreementOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    reservation_id: int
+    signed_by: str | None = None
+    signed_at: datetime | None = None

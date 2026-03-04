@@ -25,6 +25,11 @@ class Reservation(Base):
     end_at = Column(DateTime, nullable=False)
     status = Column(String, nullable=False, default="RESERVED")  # RESERVED/OUT/COMPLETED
 
+    # checkout/checkin fields (minimal audit)
+    mileage_out = Column(Integer, nullable=True)
+    mileage_in = Column(Integer, nullable=True)
+    checkin_notes = Column(String, nullable=True)
+
     customer = relationship("Customer")
     vehicle = relationship("Vehicle")
     agreement = relationship("Agreement", uselist=False, back_populates="reservation")
