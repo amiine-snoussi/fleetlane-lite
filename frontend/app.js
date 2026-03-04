@@ -18,7 +18,13 @@ async function api(path, opts = {}) {
   const text = await res.text();
   const data = text ? JSON.parse(text) : null;
   if (!res.ok) {
-    const detail = data?.detail || `${res.status} ${res.statusText}`;
+    let detail = data?.detail ?? `${res.status} ${res.statusText}`;
+    // FastAPI 422 returns detail as an array of objects
+    if (Array.isArray(detail)) {
+      detail = detail
+        .map(d => `${(d.loc || []).join(".")}: ${d.msg}`)
+        .join("\n");
+    }
     throw new Error(detail);
   }
   return data;
@@ -174,6 +180,18 @@ async function init() {
 
   await refreshVehicles();
   await refreshReservations();
+}
+const start = document.querySelector('input[name="start_at"]');
+const end = document.querySelector('input[name="end_at"]');
+if (start && end && !start.value && !end.value) {
+  const now = new Date();
+  now.setMinutes(now.getMinutes() + 5);
+  const endDt = new Date(now);
+  endDt.setHours(endDt.getHours() + 1);
+
+  const fmt = (d) => d.toISOString().slice(0,16); // "YYYY-MM-DDTHH:MM"
+  start.value = fmt(now);
+  end.value = fmt(endDt);
 }
 
 init().catch(e => log(`INIT ERROR: ${e.message}`));
