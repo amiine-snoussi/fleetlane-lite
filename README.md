@@ -10,6 +10,49 @@ Built to demonstrate: spec → design → implement → test → ship.
 - Frontend: vanilla HTML/CSS/JS served by FastAPI
 - Target: Linux (works on WSL2)
 
+## Architecture
+```mermaid
+graph LR
+    Client[Browser] --> Nginx[nginx :80]
+    Nginx --> Backend[FastAPI :8000]
+    Backend --> DB[(SQLite)]
+    GHA[GitHub Actions] --> Lint
+    GHA --> Test
+    GHA --> Build[Docker Build]
+    GHA --> Scan[Trivy Scan]
+```
+
+## Infrastructure
+
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| Reverse proxy | nginx | Load balancing, SSL termination, static files |
+| Application | FastAPI + Uvicorn | REST API server |
+| Database | SQLite (PostgreSQL-ready) | Data persistence |
+| CI/CD | GitHub Actions | Lint → Test → Build → Security scan |
+| Containers | Docker + Compose | Reproducible deployments |
+| Security | Trivy | Container image vulnerability scanning |
+
+## Run with Docker
+```bash
+# Start everything
+docker-compose up --build -d
+
+# Access via nginx
+open http://localhost
+
+# Stop
+docker-compose down
+```
+
+## What I learned building this
+
+This project started as a FastAPI demo, then I layered production infrastructure on top:
+
+1. **Containerization** — Multi-stage Docker build to minimize image size, non-root user for security
+2. **Reverse proxy** — nginx in front of the application server, same architecture I configured for a multi-team school project
+3. **CI/CD** — Automated lint, test, build, and security scanning on every push
+4. **Testing** — Unit tests for business logic, API tests for the full request lifecycle
 ## Features
 - Vehicles: create, list, get by id
 - Customers: create, list, get by id
