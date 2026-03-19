@@ -7,6 +7,7 @@ FROM python:3.11-slim
 WORKDIR /app
 
 RUN useradd -r -s /bin/false appuser
+RUN mkdir -p /app/data && chown appuser:appuser /app/data
 
 COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
 COPY --from=builder /usr/local/bin /usr/local/bin

@@ -4,7 +4,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - FLEETLANE_DATABASE_URL=sqlite:///./fleetlane.db
+      - FLEETLANE_DATABASE_URL=sqlite:///./data/fleetlane.db
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/docs')"]
       interval: 10s
