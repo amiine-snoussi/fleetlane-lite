@@ -1,4 +1,4 @@
-.PHONY: install run test lint fmt verify
+.PHONY: install run test lint fmt verify docker-up docker-down
 
 install:
 	python -m pip install -r requirements.txt
@@ -16,3 +16,9 @@ fmt:
 	ruff format .
 
 verify: lint test
+
+docker-up:
+	docker-compose up --build -d
+
+docker-down:
+	docker-compose down
