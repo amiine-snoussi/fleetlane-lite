@@ -127,9 +127,66 @@ cd backend && pytest -q
   * default: SQLite local file
   * example:
 
-    ```bash
-    export FLEETLANE_DATABASE_URL=sqlite:///./fleetlane.db
-    ```
+     ```bash
+     export FLEETLANE_DATABASE_URL=sqlite:///./fleetlane.db
+     ```
+
+Use `.env.example` as a starting point:
+
+```bash
+cp .env.example .env
+```
+
+## API examples (request/response)
+
+### Create a vehicle
+
+```bash
+curl -sX POST http://127.0.0.1:8000/api/vehicles \
+  -H 'content-type: application/json' \
+  -d '{"plate":"FL-100","mileage":12500,"location":"MTL"}'
+```
+
+Response:
+
+```json
+{
+  "id": 1,
+  "plate": "FL-100",
+  "status": "AVAILABLE",
+  "mileage": 12500,
+  "location": "MTL"
+}
+```
+
+### Health check (for runtime verification)
+
+```bash
+curl -s http://127.0.0.1:8000/health
+```
+
+Response:
+
+```json
+{
+  "status": "ok"
+}
+```
+
+## Live demo verification checklist
+
+After `docker compose up --build -d`:
+
+```bash
+curl -s http://127.0.0.1:8000/health
+curl -s http://127.0.0.1:8000/api/health
+curl -s http://127.0.0.1:8000/api/docs | head -n 2
+```
+
+Expected:
+- `/health` returns `{"status":"ok"}`
+- `/api/health` returns `{"status":"ok"}`
+- `/api/docs` returns HTML (Swagger UI)
 
 ## Repo structure
 

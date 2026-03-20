@@ -34,6 +34,10 @@ api.include_router(reservations.router)
 
 app.mount("/api", api)
 
+@app.get("/health")
+def root_health():
+    return {"status": "ok"}
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 FRONTEND_DIR = REPO_ROOT / "frontend"
 app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
