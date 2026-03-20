@@ -7,6 +7,8 @@ from fastapi.staticfiles import StaticFiles
 from .db import init_db
 from .routers import vehicles, customers, reservations
 
+from prometheus_fastapi_instrumentator import Instrumentator
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Create tables on startup (works for runtime)
@@ -15,6 +17,9 @@ async def lifespan(app: FastAPI):
 
 # Main app (lifespan runs reliably)
 app = FastAPI(title="fleetlane-lite", lifespan=lifespan)
+
+# Instrument the app with Prometheus
+Instrumentator().instrument(app).expose(app)
 
 # API sub-app
 api = FastAPI(title="fleetlane-lite-api")
