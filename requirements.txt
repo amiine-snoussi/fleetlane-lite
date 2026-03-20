@@ -13,6 +13,7 @@ idna==3.11
 iniconfig==2.3.0
 packaging==26.0
 pluggy==1.6.0
+prometheus-fastapi-instrumentator==7.0.2
 pydantic==2.12.5
 pydantic_core==2.41.5
 Pygments==2.19.2

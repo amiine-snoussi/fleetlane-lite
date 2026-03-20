@@ -146,3 +146,35 @@ cd backend && pytest -q
 ![API Docs](docs/api-docs.png)
 
 
+## Monitoring
+
+FleetLane Lite includes a full observability stack with **Prometheus** and **Grafana**.
+
+### What's Monitored
+
+- Request rate per endpoint (req/s)
+- Response time percentiles (p50, p95, p99)
+- HTTP status code distribution
+- Requests in progress (concurrency)
+
+### Architecture
+
+```
+FastAPI (/metrics) → Prometheus (scrape every 15s) → Grafana (dashboards)
+```
+
+### Access
+
+| Service    | URL                    | Credentials     |
+|------------|------------------------|-----------------|
+| Grafana    | http://localhost:3000  | admin / admin   |
+| Prometheus | http://localhost:9090  | —               |
+| API Metrics| http://localhost:8000/metrics | —        |
+
+### Quick Start
+
+```bash
+docker compose up -d
+```
+
+Open Grafana at `localhost:3000` — the **FleetLane Lite — API Monitoring** dashboard is pre-provisioned and ready.
